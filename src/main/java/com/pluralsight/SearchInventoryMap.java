@@ -1,13 +1,26 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import java.io.*;
+import java.util.HashMap;
+import java.util.Scanner;
 public class SearchInventoryMap {
+    public static HashMap<Integer, Product> inventory =
+            new HashMap<Integer, Product>();
     public static void main(String[] args) throws IOException {
-        ArrayList<Map> inventory = getInventory();
+        loadInventory();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("What item # are you interested in ? ");
+        int id = scanner.nextInt();
+        Product matchedProduct = inventory.get(id);
+        if (matchedProduct == null) {
+            System.out.println("We don't carry that product");
+            return;
+        }
+        System.out.printf("We carry %s and the price is $%.2f",
+                matchedProduct.getName(), matchedProduct.getPrice());
+    }
+
+    private static void loadInventory() throws IOException {
         FileReader fileReader = new FileReader("src/main/resources/inventory.csv");
         BufferedReader buffReader = new BufferedReader(fileReader);
         String input;
@@ -20,16 +33,7 @@ public class SearchInventoryMap {
             productID = Integer.parseInt(temp[0]);
             productName = temp[1];
             productPrice = Double.parseDouble(temp[2]);
-            inventory.add(new Map(productID, productName, productPrice));
+            inventory.put(productID,new Product(productID, productName, productPrice));
         }
-
-        System.out.println("We carry: ");
-
-        for (Map p : inventory) {
-            System.out.printf("id: %d %s - Price: $%.2f\n", p.getId(), p.getName(), p.getPrice());
-        }
-    }
-    private static ArrayList<Map> getInventory() {
-        return new ArrayList<>();
     }
 }

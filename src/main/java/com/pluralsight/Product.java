@@ -1,11 +1,11 @@
 package com.pluralsight;
 
-public class Map {
+public class Product {
     private int id;
     private String name;
     private double price;
 
-    public Map(int id, String name, double price){
+    public Product(int id, String name, double price){
         this.id = id;
         this.name = name;
         this.price = price;
@@ -19,5 +19,4 @@ public class Map {
     public double getPrice(){
         return this.price;
     }
-    //method
 }
