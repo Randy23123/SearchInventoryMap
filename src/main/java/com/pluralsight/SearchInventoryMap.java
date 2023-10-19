@@ -9,15 +9,23 @@ public class SearchInventoryMap {
     public static void main(String[] args) throws IOException {
         loadInventory();
         Scanner scanner = new Scanner(System.in);
-        System.out.print("What item # are you interested in ? ");
-        int id = scanner.nextInt();
-        Product matchedProduct = inventory.get(id);
-        if (matchedProduct == null) {
-            System.out.println("We don't carry that product");
-            return;
+
+        while (true) {
+            System.out.print("What item # are you interested in ? ");
+            int id = scanner.nextInt();
+            Product matchedProduct = inventory.get(id);
+            if (matchedProduct == null) {
+                System.out.println("We don't carry that product");
+                return;
+            }
+            System.out.printf("We carry %s and the price is $%.2f", matchedProduct.getName(), matchedProduct.getPrice());
+
+            System.out.println("\nAre there anymore items you would like:");
+            String item = scanner.next();
+            if (item.equalsIgnoreCase("n")) {
+                break;
+            }
         }
-        System.out.printf("We carry %s and the price is $%.2f",
-                matchedProduct.getName(), matchedProduct.getPrice());
     }
 
     private static void loadInventory() throws IOException {
