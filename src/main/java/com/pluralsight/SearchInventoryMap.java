@@ -10,8 +10,14 @@ public class SearchInventoryMap {
         loadInventory();
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Welcome here is my inventory!");
+        for (Product p : inventory.values()) {
+            System.out.printf("id: %d %s - Price: $%.2f\n",
+                    p.getId(), p.getName(), p.getPrice());
+        }
+
         while (true) {
-            System.out.print("What item # are you interested in ? ");
+            System.out.print("\nWhat item # are you interested in ? ");
             int id = scanner.nextInt();
             Product matchedProduct = inventory.get(id);
             if (matchedProduct == null) {
