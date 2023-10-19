@@ -19,4 +19,5 @@ public class Map {
     public double getPrice(){
         return this.price;
     }
+    //method
 }
